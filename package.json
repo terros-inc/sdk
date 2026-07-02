@@ -23,6 +23,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "lint": "oxlint",
     "test": "vitest run"
   },
   "type": "module",
