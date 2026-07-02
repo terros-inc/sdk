@@ -7,5 +7,6 @@ export default defineProject({
     include: ['src/**/*.test.ts'],
     exclude: ['**/build/**', '**/test/__fixtures__/**'],
     pool: 'threads',
+    passWithNoTests: true,
   },
 })
