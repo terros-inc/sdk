@@ -1,12 +1,7 @@
 {
   "files.exclude": {
     "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
     "**/.DS_Store": true,
-    "**/Thumbs.db": true,
-    "**/build": false,
     "**/node_modules": true
   },
   "[typescript]": {
@@ -15,15 +10,7 @@
       "source.fixAll.oxc": "always"
     }
   },
-  "[typescriptreact]": {
-    "editor.codeActionsOnSave": {
-      "source.removeUnusedImports": "always",
-      "source.fixAll.oxc": "always"
-    }
-  },
   "search.exclude": {
-    "**/.sst": true,
-    "**/build": true,
     "**/dist": true,
     "**/node_modules": true
   },
