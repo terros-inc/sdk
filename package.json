@@ -1,5 +1,8 @@
 {
   "author": "Terros Inc.",
+  "bugs": {
+    "url": "https://github.com/terros-inc/sdk/issues"
+  },
   "description": "Typescript SDK for Terros Sales platform",
   "devDependencies": {
     "@types/node": "^24.13.2",
@@ -11,12 +14,22 @@
   "engines": {
     "node": "^24"
   },
+  "files": [
+    "dist"
+  ],
   "homepage": "https://github.com/terros-inc/sdk#readme",
-  "keywords": [],
-  "license": "ISC",
-  "main": "index.js",
+  "keywords": [
+    "terros",
+    "sdk"
+  ],
+  "license": "MIT",
+  "main": "./dist/index.js",
   "name": "@terros-inc/sdk",
   "packageManager": "pnpm@11.9.0+sha512.bd682d5d03fe525ef7c9fd6780c6884d1e756ac4c9c9fe00c538782824310dcf90e3ddc4f53835f06dfaebd5085e41855e0bcbb3b60de2ac5bbab89e5036f03b",
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/terros-inc/sdk.git"
@@ -26,6 +39,7 @@
     "format": "oxfmt --write .",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
+    "prepack": "pnpm build",
     "test": "vitest run"
   },
   "type": "module",
