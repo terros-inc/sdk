@@ -31,6 +31,15 @@ describe('ApiCaller', () => {
     })
   })
 
+  it('wraps a network failure in an Error with the underlying cause', async () => {
+    const networkError = new TypeError('fetch failed')
+    globalThis.fetch = vi.fn().mockRejectedValue(networkError) as unknown as typeof fetch
+    const caller = new ApiCaller({ auth: 'test-key', baseUrl: 'https://example.com' })
+
+    await expect(caller.call('user/get', {})).rejects.toThrow('Request to user/get failed')
+    await expect(caller.call('user/get', {})).rejects.toMatchObject({ cause: networkError })
+  })
+
   it('throws with the status text on a non-ok response', async () => {
     mockFetch({}, false)
     const caller = new ApiCaller({ auth: 'test-key', baseUrl: 'https://example.com' })

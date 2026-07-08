@@ -11,13 +11,18 @@ export class ApiCaller {
   constructor(private readonly config: ClientConfig) {}
 
   async call<Success>(route: ApiRoute, input: object): Promise<Success> {
-    const response = await fetch(`${this.resolveBaseUrl()}/${route}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', authorization: this.config.auth },
-      body: JSON.stringify(input),
-    })
-    const output: unknown = await response.json()
+    let response: Response
+    try {
+      response = await fetch(`${this.resolveBaseUrl()}/${route}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', authorization: this.config.auth },
+        body: JSON.stringify(input),
+      })
+    } catch (cause) {
+      throw new Error(`Request to ${route} failed`, { cause })
+    }
     if (!response.ok) throw new Error(response.statusText)
+    const output: unknown = await response.json()
     if (isResponseError(output)) throw new Error(output.message ?? output.error)
     return output as Success
   }
@@ -29,5 +34,5 @@ export class ApiCaller {
 
 function readProcessEnvBaseUrl(): string | undefined {
   if (typeof globalThis.process === 'undefined') return undefined
-  return process.env.TERROS_SDK_BASE_URL
+  return globalThis.process.env.TERROS_SDK_BASE_URL
 }
