@@ -26,7 +26,7 @@ describe('ApiCaller', () => {
     expect(result).toEqual({ type: 'success', value: 42 })
     expect(globalThis.fetch).toHaveBeenCalledWith('https://example.com/user/get', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', authorization: 'test-key' },
+      headers: { 'Content-Type': 'application/json', authorization: 'ApiKey test-key' },
       body: JSON.stringify({ userId: 'U:1' }),
     })
   })
