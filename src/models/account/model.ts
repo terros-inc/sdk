@@ -1,6 +1,6 @@
-import type { RoleId, SmallUser, TeamId, UserId } from '../user/model.ts'
-import type { CustomFieldMap } from '../shared.ts'
-import type { LatLng, SmallAddress } from '../location/model.ts'
+import type { RoleId, SmallUser, TeamId, UserId } from '../user'
+import type { CustomFieldMap } from '../shared'
+import type { LatLng, SmallAddress } from '../location'
 
 export type AccountId = `Account:${string}` | `Account.${string}`
 export type AccountStatusId = `AS.${string}`

@@ -1,30 +1,30 @@
-import type { ApiSuccess } from '../models/shared.ts'
-import type {
-  AccountAddInput,
-  AccountAddSuccess,
-  AccountGetInput,
-  AccountGetSuccess,
-  AccountListInput,
-  AccountListSuccess,
-  AccountMatchInput,
-  AccountMatchSuccess,
-  AccountRemoveInput,
-  AccountStatusAddInput,
-  AccountStatusAddSuccess,
-  AccountStatusListInput,
-  AccountStatusListSuccess,
-  AccountStatusRemoveInput,
-  AccountStatusUpdateInput,
-  AccountStatusUpdateSuccess,
-  AccountUpdateBatchInput,
-  AccountUpdateBatchSuccess,
-  AccountUpdateInput,
-  AccountUpdateSuccess,
-  AccountUpsertInput,
-  AccountUpsertSuccess,
-  BulkModifyAccountsInput,
-} from '../models/account/api.ts'
-import type { ApiCaller } from '../client.ts'
+import {
+  type AccountStatusAddInput,
+  type AccountStatusAddSuccess,
+  type AccountStatusUpdateInput,
+  type AccountStatusUpdateSuccess,
+  type AccountStatusListInput,
+  type AccountStatusListSuccess,
+  type AccountStatusRemoveInput,
+  type ApiSuccess,
+  type AccountAddInput,
+  type AccountAddSuccess,
+  type AccountUpdateInput,
+  type AccountUpdateSuccess,
+  type AccountUpdateBatchInput,
+  type AccountUpdateBatchSuccess,
+  type AccountListInput,
+  type AccountListSuccess,
+  type BulkModifyAccountsInput,
+  type AccountGetInput,
+  type AccountGetSuccess,
+  type AccountMatchInput,
+  type AccountMatchSuccess,
+  type AccountRemoveInput,
+  type AccountUpsertInput,
+  type AccountUpsertSuccess,
+} from '../models'
+import { type ApiCaller } from '../client'
 
 export class AccountStatusClient {
   constructor(private readonly api: ApiCaller) {}

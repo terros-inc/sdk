@@ -1,14 +1,14 @@
-import type { ApiSuccess } from '../shared.ts'
-import type { AvailableCloser, RoleId, TeamId, TinyCloser, UserId } from '../user/model.ts'
-import type { LatLng } from '../location/model.ts'
-import type { AccountId, LocationId, UpsertLatLng } from '../account/model.ts'
+import type { AvailableCloser, RoleId, TeamId, TinyCloser, UserId } from '../user'
+import type { ApiSuccess } from '../shared'
+import type { LatLng } from '../location'
+import type { AccountId, LocationId, UpsertLatLng } from '../account'
 import type {
   CalendarEventData,
   CalendarEventDataWithDetails,
   CalendarEventId,
   EventType,
   UnsavedCalendarEventData,
-} from './model.ts'
+} from './model'
 
 type CalendarEventRoleFilter = 'owner' | 'attendee'
 

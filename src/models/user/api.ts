@@ -1,5 +1,5 @@
-import type { ApiSuccess } from '../shared.ts'
-import type { CompanyData, CompanyId } from '../company/model.ts'
+import type { ApiSuccess } from '../shared'
+import type { CompanyData, CompanyId } from '../company'
 import type {
   CloserStatus,
   EntityId,
@@ -13,7 +13,7 @@ import type {
   UserId,
   UserIdentifier,
   UserProfileData,
-} from './model.ts'
+} from './model'
 
 export type UserListInput = {
   showArchived?: true | false | 'all'

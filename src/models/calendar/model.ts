@@ -1,7 +1,7 @@
-import type { SmallUser, TeamId, UserId } from '../user/model.ts'
-import type { TinyTeam } from '../team/model.ts'
-import type { Address, LatLng } from '../location/model.ts'
-import type { AccountId, DispositionId, LocationId, TinyResidentData, TinyWorkflowAccount } from '../account/model.ts'
+import type { SmallUser, TeamId, UserId } from '../user'
+import type { TinyTeam } from '../team'
+import type { Address, LatLng } from '../location'
+import type { AccountId, DispositionId, LocationId, TinyResidentData, TinyWorkflowAccount } from '../account'
 
 export type CalendarEventId = `Event:${string}` | `Event.${string}`
 /** @deprecated */

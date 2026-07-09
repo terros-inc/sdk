@@ -1,4 +1,4 @@
-import type { TeamId } from '../user/model.ts'
+import type { TeamId } from '../user'
 
 export type TinyTeam = {
   teamId: TeamId

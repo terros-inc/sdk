@@ -1,6 +1,6 @@
-import { isResponseError, type ApiRoute } from './models/index.ts'
-import { AccountClient, CalendarClient, UserClient } from './clients/index.ts'
-import { getAnalyticsHeaders } from './analytics.ts'
+import { type ApiRoute, isResponseError } from './models'
+import { UserClient, AccountClient, CalendarClient } from './clients'
+import { getAnalyticsHeaders } from './analytics'
 
 export type ClientConfig = {
   apiKey?: string

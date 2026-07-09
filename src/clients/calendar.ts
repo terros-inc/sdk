@@ -1,26 +1,26 @@
-import type { ApiSuccess } from '../models/shared.ts'
-import type {
-  CalendarAvailabilityInput,
-  CalendarAvailabilitySuccess,
-  CalendarClosersInput,
-  CalendarClosersSuccess,
-  CalendarEventAddInput,
-  CalendarEventAddSuccess,
-  CalendarEventConfirmInput,
-  CalendarEventConfirmSuccess,
-  CalendarEventGetInput,
-  CalendarEventGetSuccess,
-  CalendarEventListInput,
-  CalendarEventListSuccess,
-  CalendarEventRemoveInput,
-  CalendarEventUpdateInput,
-  CalendarEventUpdateSuccess,
-  CalendarEventUpsertInput,
-  CalendarEventUpsertSuccess,
-  CalendarTimeslotsInput,
-  CalendarTimeslotsSuccess,
-} from '../models/calendar/api.ts'
-import type { ApiCaller } from '../client.ts'
+import {
+  type CalendarEventAddInput,
+  type CalendarEventAddSuccess,
+  type CalendarEventGetInput,
+  type CalendarEventGetSuccess,
+  type CalendarEventListInput,
+  type CalendarEventListSuccess,
+  type CalendarEventUpdateInput,
+  type CalendarEventUpdateSuccess,
+  type CalendarEventUpsertInput,
+  type CalendarEventUpsertSuccess,
+  type CalendarEventConfirmInput,
+  type CalendarEventConfirmSuccess,
+  type CalendarEventRemoveInput,
+  type ApiSuccess,
+  type CalendarAvailabilityInput,
+  type CalendarAvailabilitySuccess,
+  type CalendarClosersInput,
+  type CalendarClosersSuccess,
+  type CalendarTimeslotsInput,
+  type CalendarTimeslotsSuccess,
+} from '../models'
+import { type ApiCaller } from '../client'
 
 export class CalendarEventClient {
   constructor(private readonly api: ApiCaller) {}
