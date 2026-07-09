@@ -25,7 +25,19 @@ export type LocationId =
   | `TLoc.${string}`
   | `FA.${string}`
   | `PR.${string}`
-/** A disposition (outcome of a contact attempt) identifier, or a built-in disposition name. */
+/**
+ * A disposition (outcome of a door/phone contact attempt) identifier, or one of the
+ * built-in legacy dispositions:
+ *
+ * - `NewAccount` — The contact resulted in creating a new account/lead.
+ * - `NotHome` — No one answered.
+ * - `Comeback` — Worth a follow-up visit later; typically schedules an appointment.
+ * - `NotNow` — The homeowner isn't interested at this time.
+ * - `NotQualified` — The homeowner doesn't qualify.
+ * - `Competitor` — The homeowner already has or is working with a competitor.
+ * - `PartialPitch` — A pitch was started but not completed. Retired; new contacts shouldn't use it.
+ * - `Custom1` / `Custom2` / `Custom3` — Retired, company-specific dispositions.
+ */
 export type DispositionId =
   | `Disposition:${string}`
   | `Disposition.${string}`
@@ -142,18 +154,25 @@ export type UnsavedAccount = {
   workflowStageId?: WorkflowStageId
   workflowActionId?: WorkflowActionId
   deviceLocation?: LatLng
+  /** Workflow stages this account has reached, as a plain list (unlike the timestamped {@link workflowHistory}). */
   checkpoints?: WorkflowStageId[]
   accountId?: AccountId
   /** @deprecated use workflowStageId/workflowActionId */
   statusId?: AccountStatusId
+  /** The system this account originated from (e.g. an integration name), if not created directly. */
   accountSource?: string
+  /** The account's raw, unmapped status from {@link accountSource}. */
   sourceStatus?: string
+  /** The account's unique identifier in {@link accountSource}. */
   sourceId?: string
+  /** An alternate external lead identifier, separate from {@link sourceId}. */
   externalLeadId?: string
   locationId?: LocationId
   location?: SmallAddress
+  /** The setter/rep who owns this lead. */
   ownerId?: UserId
   owner?: AccountUserDetails
+  /** The salesperson assigned to close this account. */
   closerId?: UserId
   closer?: AccountUserDetails
   /** Primary homeowner/resident data for this account. */
@@ -166,11 +185,17 @@ export type UnsavedAccount = {
   /** @deprecated */
   dealSize?: number
   appointmentDate?: number
+  /** Whether this is a test record; downstream systems should ignore it. */
   test?: boolean
   teamId?: TeamId
   contacts?: UnsavedAccountContact[]
   notes?: UnsavedAccountNote[]
+  /**
+   * Whether this is the first account created for its property. Additional accounts on the
+   * same property (see {@link parentAccountId}) aren't parents.
+   */
   isParent?: boolean
+  /** The parent account for this property, if this isn't the first account created on it. See {@link isParent}. */
   parentAccountId?: AccountId
   tags?: TagWithDate[]
 }
@@ -203,6 +228,7 @@ export type AccountData = Omit<UnsavedAccount, 'contacts' | 'notes'> & {
   contacts?: AccountContact[]
   notes?: AccountNote[]
   lastActionDate?: number
+  /** The trainee rep (recruit) assigned to this account, tracked separately from {@link UnsavedAccount.ownerId}/{@link UnsavedAccount.closerId}. */
   recruitId?: UserId
   ownerHistory?: UserHistory
   closerHistory?: UserHistory
@@ -272,7 +298,13 @@ export type UpsertLatLng = {
 /** Same shape as {@link TinyResidentData}, accepted when creating or updating a resident. */
 export type UpsertTinyResidentData = TinyResidentData
 
-/** @deprecated will eventually be replaced by AccountStatusId */
+/**
+ * @deprecated Will eventually be replaced by {@link AccountStatusId}. The legacy solar sales
+ * pipeline, roughly sequential (`Lead` → `Set` an appointment → `Sit` the appointment →
+ * `Closed` the sale → `Approved` for financing/HOA → `Permit Submitted` → `Permit Approved` →
+ * `Installed` → `Archived`), with `Do Not Contact` as a separate suppression status rather
+ * than a pipeline stage.
+ */
 export type AccountStatusCode =
   | 'Lead'
   | 'Set'

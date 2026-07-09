@@ -1,11 +1,14 @@
 import type { UserId } from '../user/model.ts'
 
-/** Lifecycle state of a company (tenant). */
+/**
+ * The company's lifecycle state. `suspended` is the only state that revokes access; every
+ * other value (including the `demo`/`sandbox`/`template` group) is treated as active.
+ */
 export type CompanyState = 'active' | 'trial' | 'internal' | 'demo' | 'sandbox' | 'template' | 'suspended'
-/** Category describing what a company is used for. */
+/** What a company is used for. `customer` is a real, paying tenant; the rest are non-billing internal uses. */
 export type CompanyKind = 'customer' | 'sandbox' | 'demo' | 'template' | 'development'
+/** A manual override of {@link CompanyState}'s access implications, e.g. to suspend a company for non-payment. */
 export type AccessStatus = 'active' | 'suspended'
-/** How the company is billed. */
 export type BillingMethod = 'stripe' | 'none'
 export type CompanyIndustry =
   | 'solar'
@@ -21,7 +24,6 @@ export type CompanyIndustry =
   | 'other'
   | 'solar_cleaning'
 
-/** A company (tenant) identifier. */
 export type CompanyId = `C:${string}` | `C.${string}`
 
 /** A company (tenant) in the platform. */
@@ -31,7 +33,6 @@ export type CompanyData = {
   legalName?: string
   kind?: CompanyKind
   accessStatus?: AccessStatus
-  /** The internal (Terros-side) user who owns this company account. */
   internalOwnerId?: UserId
   billingEmail?: string
   billingMethod?: BillingMethod

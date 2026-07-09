@@ -1,4 +1,3 @@
-/** A geographic coordinate pair. */
 export type LatLng = {
   latitude: number
   longitude: number

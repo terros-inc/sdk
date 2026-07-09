@@ -13,7 +13,15 @@ export type RoleId = `Role.${string}`
 /** A user ID, email, or clientUserId. */
 export type UserIdentifier = string
 
-/** A closer's availability/skill status for booking appointments. */
+/**
+ * A user's sales role, determining what appointments they can book/close:
+ *
+ * - `None` — No sales role.
+ * - `Needs_Help` — "Setter": can only set appointments for a closer to run.
+ * - `Can_Close` — "Self Gen": can close their own self-generated deals only.
+ * - `Can_Help` — "Self Gen & Closer" (default): can self-gen and also close for other setters.
+ * - `Closer_Only` — "Closer": only closes appointments booked by setters; doesn't self-generate.
+ */
 export type CloserStatus = 'None' | 'Needs_Help' | 'Can_Close' | 'Can_Help' | 'Closer_Only'
 
 /** A minimal permission role representation. */
@@ -91,7 +99,16 @@ export type AvailableCloser = TinyUser & {
   unavailableReason?: string
 }
 
-/** The set of entities a permission grant applies to. */
+/**
+ * The set of entities a permission grant applies to:
+ *
+ * - `self` — Only the user's own record.
+ * - `downline` — The given team/user and its sub-teams.
+ * - `company` — Anything in the company.
+ * - `withinRestrictions` — Entities within the user's team restrictions, or the whole company
+ *   if they have none.
+ * - `none` — The permission is disabled.
+ */
 type UserScope =
   | { entity: 'self' | 'company' | 'withinRestrictions' | 'none' }
   | { entity: 'downline'; entityId: UserId | TeamId }
