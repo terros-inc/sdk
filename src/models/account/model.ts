@@ -130,7 +130,7 @@ export type TinyResidentData = {
   decision?: PrescreenDecision
   individualId?: PrescreenIndividualId
   age?: number
-  creditScore?: { gte: number; lte: number }
+  creditScore?: RangeFilter
 }
 
 /** The payload for creating or fully updating an account. */
