@@ -12,9 +12,11 @@ const PROD_BASE_URL = 'https://api.terros.com'
 export class ApiCaller {
   private readonly baseUrl: string
   private readonly auth: string
+  private readonly analytics: Record<string, string | undefined>
 
   constructor(config: ClientConfig) {
     this.baseUrl = config.baseUrl ?? readProcessEnv('TERROS_SDK_BASE_URL') ?? PROD_BASE_URL
+    this.analytics = getAnalyticsHeaders()
     const auth = config.apiKey ?? readProcessEnv('TERROS_API_KEY')
     if (!auth) throw new Error('No auth provided: set TERROS_API_KEY or pass config.auth')
     this.auth = auth
@@ -23,11 +25,10 @@ export class ApiCaller {
   async call<Success>(route: ApiRoute, input: object): Promise<Success> {
     let response: Response
     try {
-      const analytics = await getAnalyticsHeaders()
       response = await fetch(`${this.baseUrl}/${route}`, {
         method: 'POST',
         headers: {
-          ...analytics,
+          ...this.analytics,
           'Content-Type': 'application/json',
           authorization: `ApiKey ${this.auth}`,
         },
