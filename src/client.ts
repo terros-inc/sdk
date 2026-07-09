@@ -1,5 +1,6 @@
 import { isResponseError, type ApiRoute } from './models/index.ts'
 import { AccountClient, CalendarClient, UserClient } from './clients/index.ts'
+import { getAnalyticsHeaders } from './analytics.ts'
 
 export type ClientConfig = {
   apiKey?: string
@@ -22,9 +23,14 @@ export class ApiCaller {
   async call<Success>(route: ApiRoute, input: object): Promise<Success> {
     let response: Response
     try {
+      const analytics = await getAnalyticsHeaders()
       response = await fetch(`${this.baseUrl}/${route}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', authorization: `ApiKey ${this.auth}` },
+        headers: {
+          ...analytics,
+          'Content-Type': 'application/json',
+          authorization: `ApiKey ${this.auth}`,
+        },
         body: JSON.stringify(input),
       })
     } catch (cause) {
