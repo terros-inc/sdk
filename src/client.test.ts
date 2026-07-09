@@ -19,7 +19,7 @@ describe('ApiCaller', () => {
 
   it('sends a POST with the route, headers, and JSON body, returning the parsed success', async () => {
     mockFetch({ type: 'success', value: 42 })
-    const caller = new ApiCaller({ auth: 'test-key', baseUrl: 'https://example.com' })
+    const caller = new ApiCaller({ apiKey: 'test-key', baseUrl: 'https://example.com' })
 
     const result = await caller.call('user/get', { userId: 'U:1' })
 
@@ -34,7 +34,7 @@ describe('ApiCaller', () => {
   it('wraps a network failure in an Error with the underlying cause', async () => {
     const networkError = new TypeError('fetch failed')
     globalThis.fetch = vi.fn().mockRejectedValue(networkError) as unknown as typeof fetch
-    const caller = new ApiCaller({ auth: 'test-key', baseUrl: 'https://example.com' })
+    const caller = new ApiCaller({ apiKey: 'test-key', baseUrl: 'https://example.com' })
 
     await expect(caller.call('user/get', {})).rejects.toThrow('Request to user/get failed')
     await expect(caller.call('user/get', {})).rejects.toMatchObject({ cause: networkError })
@@ -42,14 +42,14 @@ describe('ApiCaller', () => {
 
   it('throws with the status text on a non-ok response', async () => {
     mockFetch({}, false)
-    const caller = new ApiCaller({ auth: 'test-key', baseUrl: 'https://example.com' })
+    const caller = new ApiCaller({ apiKey: 'test-key', baseUrl: 'https://example.com' })
 
     await expect(caller.call('user/get', {})).rejects.toThrow('Bad Request')
   })
 
   it('throws with the error message on a ResponseError body', async () => {
     mockFetch({ type: 'error', error: 'not_found', message: 'User not found' })
-    const caller = new ApiCaller({ auth: 'test-key', baseUrl: 'https://example.com' })
+    const caller = new ApiCaller({ apiKey: 'test-key', baseUrl: 'https://example.com' })
 
     await expect(caller.call('user/get', {})).rejects.toThrow('User not found')
   })
@@ -61,7 +61,7 @@ describe('ApiCaller', () => {
 
     it('prefers the explicit config baseUrl over the env var and default', async () => {
       process.env.TERROS_SDK_BASE_URL = 'https://env.example.com'
-      const caller = new ApiCaller({ auth: 'test-key', baseUrl: 'https://config.example.com' })
+      const caller = new ApiCaller({ apiKey: 'test-key', baseUrl: 'https://config.example.com' })
 
       await caller.call('user/get', {})
 
@@ -70,7 +70,7 @@ describe('ApiCaller', () => {
 
     it('falls back to the env var when no baseUrl is configured', async () => {
       process.env.TERROS_SDK_BASE_URL = 'https://env.example.com'
-      const caller = new ApiCaller({ auth: 'test-key' })
+      const caller = new ApiCaller({ apiKey: 'test-key' })
 
       await caller.call('user/get', {})
 
@@ -78,7 +78,7 @@ describe('ApiCaller', () => {
     })
 
     it('falls back to the prod default when neither baseUrl nor env var is set', async () => {
-      const caller = new ApiCaller({ auth: 'test-key' })
+      const caller = new ApiCaller({ apiKey: 'test-key' })
 
       await caller.call('user/get', {})
 

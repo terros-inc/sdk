@@ -2,7 +2,7 @@ import { isResponseError, type ApiRoute } from './models/index.ts'
 import { AccountClient, CalendarClient, UserClient } from './clients/index.ts'
 
 export type ClientConfig = {
-  auth?: string
+  apiKey?: string
   baseUrl?: string
 }
 
@@ -14,7 +14,7 @@ export class ApiCaller {
 
   constructor(config: ClientConfig) {
     this.baseUrl = config.baseUrl ?? readProcessEnv('TERROS_SDK_BASE_URL') ?? PROD_BASE_URL
-    const auth = config.auth ?? readProcessEnv('TERROS_API_KEY')
+    const auth = config.apiKey ?? readProcessEnv('TERROS_API_KEY')
     if (!auth) throw new Error('No auth provided: set TERROS_API_KEY or pass config.auth')
     this.auth = auth
   }
