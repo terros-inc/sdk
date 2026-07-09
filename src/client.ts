@@ -24,7 +24,7 @@ export class ApiCaller {
     try {
       response = await fetch(`${this.baseUrl}/${route}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', authorization: this.auth },
+        headers: { 'Content-Type': 'application/json', authorization: `ApiKey ${this.auth}` },
         body: JSON.stringify(input),
       })
     } catch (cause) {
