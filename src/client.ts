@@ -1,21 +1,30 @@
-import { isResponseError, type ApiRoute } from './models/shared.ts'
+import { isResponseError, type ApiRoute } from './models/index.ts'
+import { AccountClient, CalendarClient, UserClient } from './clients/index.ts'
 
 export type ClientConfig = {
-  auth: string
+  auth?: string
   baseUrl?: string
 }
 
 const PROD_BASE_URL = 'https://api.terros.com'
 
 export class ApiCaller {
-  constructor(private readonly config: ClientConfig) {}
+  private readonly baseUrl: string
+  private readonly auth: string
+
+  constructor(config: ClientConfig) {
+    this.baseUrl = config.baseUrl ?? readProcessEnv('TERROS_SDK_BASE_URL') ?? PROD_BASE_URL
+    const auth = config.auth ?? readProcessEnv('TERROS_API_KEY')
+    if (!auth) throw new Error('No auth provided: set TERROS_API_KEY or pass config.auth')
+    this.auth = auth
+  }
 
   async call<Success>(route: ApiRoute, input: object): Promise<Success> {
     let response: Response
     try {
-      response = await fetch(`${this.resolveBaseUrl()}/${route}`, {
+      response = await fetch(`${this.baseUrl}/${route}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', authorization: this.config.auth },
+        headers: { 'Content-Type': 'application/json', authorization: this.auth },
         body: JSON.stringify(input),
       })
     } catch (cause) {
@@ -26,13 +35,22 @@ export class ApiCaller {
     if (isResponseError(output)) throw new Error(output.message ?? output.error)
     return output as Success
   }
-
-  private resolveBaseUrl(): string {
-    return this.config.baseUrl ?? readProcessEnvBaseUrl() ?? PROD_BASE_URL
-  }
 }
 
-function readProcessEnvBaseUrl(): string | undefined {
+function readProcessEnv(key: string): string | undefined {
   if (typeof globalThis.process === 'undefined') return undefined
-  return globalThis.process.env.TERROS_SDK_BASE_URL
+  return globalThis.process.env[key]
+}
+
+export class TerrosClient {
+  readonly user: UserClient
+  readonly account: AccountClient
+  readonly calendar: CalendarClient
+
+  constructor(config: ClientConfig) {
+    const api = new ApiCaller(config)
+    this.user = new UserClient(api)
+    this.account = new AccountClient(api)
+    this.calendar = new CalendarClient(api)
+  }
 }
