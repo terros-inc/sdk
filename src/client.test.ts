@@ -26,8 +26,26 @@ describe('ApiCaller', () => {
     expect(result).toEqual({ type: 'success', value: 42 })
     expect(globalThis.fetch).toHaveBeenCalledWith('https://example.com/user/get', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', authorization: 'ApiKey test-key' },
+      headers: expect.objectContaining({
+        'Content-Type': 'application/json',
+        authorization: 'ApiKey test-key',
+      }),
       body: JSON.stringify({ userId: 'U:1' }),
+    })
+  })
+
+  it('includes analytics headers describing the platform and SDK version', async () => {
+    mockFetch({ type: 'success', value: 42 })
+    const caller = new ApiCaller({ apiKey: 'test-key', baseUrl: 'https://example.com' })
+
+    await caller.call('user/get', { userId: 'U:1' })
+
+    const [, options] = vi.mocked(globalThis.fetch).mock.calls[0] as [string, RequestInit]
+    expect(options.headers).toMatchObject({
+      'Terros-Bundle-Identifier': 'com.terros.sdk',
+      'Terros-Platform': expect.any(String),
+      'Terros-Platform-Version': expect.any(String),
+      'Terros-App-Version': expect.any(String),
     })
   })
 
