@@ -1,4 +1,4 @@
-import type { UserId } from '../user/model.ts'
+import type { UserId } from '../user'
 
 export type CompanyState = 'active' | 'trial' | 'internal' | 'demo' | 'sandbox' | 'template' | 'suspended'
 export type CompanyKind = 'customer' | 'sandbox' | 'demo' | 'template' | 'development'

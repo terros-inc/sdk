@@ -1,4 +1,4 @@
-import type { UserId } from './user/model.ts'
+import type { UserId } from './user'
 
 /** A Connect API route string, e.g. "user/get" or "account/status/add". */
 export type ApiRoute = string

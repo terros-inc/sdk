@@ -8,8 +8,8 @@
       "vitest/globals",
       "node"
     ],
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
 
     "rootDir": "src",
     "outDir": "./dist",
@@ -23,9 +23,7 @@
     "skipLibCheck": true,
 
     "declaration": true,
-    "sourceMap": false,
-    "allowImportingTsExtensions": true,
-    "rewriteRelativeImportExtensions": true
+    "sourceMap": false
   },
   "include": [
     "src/**/*.ts"

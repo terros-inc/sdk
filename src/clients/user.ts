@@ -1,29 +1,29 @@
-import type {
-  UserAddInput,
-  UserAddSuccess,
-  UserBulkUpdateInput,
-  UserBulkUpdateSuccess,
-  UserClosersInput,
-  UserClosersSuccess,
-  UserGetInput,
-  UserGetSuccess,
-  UserListInput,
-  UserListSuccess,
-  UserManagerInput,
-  UserManagerSuccess,
-  UserProfileInput,
-  UserProfileSuccess,
-  UserRemoveInput,
-  UserReportInput,
-  UserReportSuccess,
-  UserSearchInput,
-  UserSearchSuccess,
-  UserTimezoneInput,
-  UserUpdateInput,
-  UserUpdateSuccess,
-} from '../models/user/api.ts'
-import type { ApiSuccess } from '../models/shared.ts'
-import type { ApiCaller } from '../client.ts'
+import {
+  type UserListInput,
+  type UserListSuccess,
+  type UserAddInput,
+  type UserAddSuccess,
+  type UserUpdateInput,
+  type UserUpdateSuccess,
+  type UserBulkUpdateInput,
+  type UserBulkUpdateSuccess,
+  type UserRemoveInput,
+  type ApiSuccess,
+  type UserGetInput,
+  type UserGetSuccess,
+  type UserProfileInput,
+  type UserProfileSuccess,
+  type UserSearchInput,
+  type UserSearchSuccess,
+  type UserTimezoneInput,
+  type UserReportInput,
+  type UserReportSuccess,
+  type UserClosersInput,
+  type UserClosersSuccess,
+  type UserManagerInput,
+  type UserManagerSuccess,
+} from '../models'
+import { type ApiCaller } from '../apiCaller'
 
 export class UserClient {
   constructor(private readonly api: ApiCaller) {}

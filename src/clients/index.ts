@@ -1,3 +1,3 @@
-export * from './account.ts'
-export * from './calendar.ts'
-export * from './user.ts'
+export * from './account'
+export * from './calendar'
+export * from './user'

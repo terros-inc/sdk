@@ -1,7 +1,7 @@
-import type { ApiSuccess, CustomFieldMap } from '../shared.ts'
-import type { RoleId, SmallUser, TeamId, UserId, UserIdentifier } from '../user/model.ts'
-import type { LatLng } from '../location/model.ts'
-import type { CompanyId } from '../company/model.ts'
+import type { RoleId, SmallUser, TeamId, UserId, UserIdentifier } from '../user'
+import type { ApiSuccess, CustomFieldMap } from '../shared'
+import type { LatLng } from '../location'
+import type { CompanyId } from '../company'
 import type {
   AccountData,
   AccountDataResponse,
@@ -30,7 +30,7 @@ import type {
   WorkflowActionId,
   WorkflowId,
   WorkflowStageId,
-} from './model.ts'
+} from './model'
 
 export type AccountStatusSearchInput = {
   accountIds?: AccountId[]

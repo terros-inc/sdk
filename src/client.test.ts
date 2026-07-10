@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { ApiCaller } from './client.ts'
+import { ApiCaller } from './apiCaller'
 
 describe('ApiCaller', () => {
   const originalFetch = globalThis.fetch
