@@ -20,7 +20,7 @@ import {
   type CalendarTimeslotsInput,
   type CalendarTimeslotsSuccess,
 } from '../models'
-import { type ApiCaller } from '../client'
+import { type ApiCaller } from '../apiCaller'
 
 export class CalendarEventClient {
   constructor(private readonly api: ApiCaller) {}

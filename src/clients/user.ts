@@ -23,7 +23,7 @@ import {
   type UserManagerInput,
   type UserManagerSuccess,
 } from '../models'
-import { type ApiCaller } from '../client'
+import { type ApiCaller } from '../apiCaller'
 
 export class UserClient {
   constructor(private readonly api: ApiCaller) {}

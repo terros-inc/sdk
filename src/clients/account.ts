@@ -24,7 +24,7 @@ import {
   type AccountUpsertInput,
   type AccountUpsertSuccess,
 } from '../models'
-import { type ApiCaller } from '../client'
+import { type ApiCaller } from '../apiCaller'
 
 export class AccountStatusClient {
   constructor(private readonly api: ApiCaller) {}
